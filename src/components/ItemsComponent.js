@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {CategoryComponent} from "./CategoryComponent";
 
 export const ItemsComponent = () => {
     const [products, setProducts] = useState([]);
@@ -8,18 +7,36 @@ export const ItemsComponent = () => {
     const [errors, setErrors] = useState("");
     const [sortKey, setSortKey] = useState('name');
     const [sortType, setSortType] = useState('ASC');
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const getProductsPage = async () => {
         try {
-            const settings = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    sort: {
-                        key: sortKey,
-                        type: sortType,
-                    },
-                }),
-            };
+            let settings = {};
+            if (selectedCategories.length > 0){
+                settings = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sort: {
+                            key: sortKey,
+                            type: sortType,
+                        },
+                        categories: selectedCategories,
+                    }),
+                };
+            }else{
+                settings = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sort: {
+                            key: sortKey,
+                            type: sortType,
+                        },
+                    }),
+                };
+
+            }
+
             const response = await fetch(`https://technical-frontend-api.bokokode.com/api/products?page=${currentPage}`, settings);
             const {data} = await response.json();
 
@@ -32,7 +49,7 @@ export const ItemsComponent = () => {
     }
     useEffect(() => {
         getProductsPage()
-    }, [currentPage, sortType, sortKey])
+    }, [currentPage, sortType, sortKey,selectedCategories])
 
     function handlePrevPage() {
         setCurrentPage(currentPage - 1);
@@ -57,6 +74,15 @@ export const ItemsComponent = () => {
         setSortKey(newSortKey);
     }
 
+    function handleCategoryChange(e) {
+        const { value, checked } = e.target;
+        if (checked) {
+            setSelectedCategories([...selectedCategories, value]);
+        } else {
+            setSelectedCategories(selectedCategories.filter((c) => c !== value));
+        }
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -70,7 +96,71 @@ export const ItemsComponent = () => {
                     <label onClick={handleSortName}><strong>Name</strong></label>
                 </div>
 
-                <CategoryComponent />
+                <div className="col-md-5 col-lg-5 mb-4">
+                    <h6><strong>Category</strong></h6>
+                    <div>
+                        <input
+                            type="checkbox"
+                            className="form-check-input me-2"
+                            value="people"
+                            onChange={handleCategoryChange}
+                        />
+                        <label className="form-check-label">People</label>
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            className="form-check-input me-2"
+                            value="premium"
+                            onChange={handleCategoryChange}
+                        />
+                        <label className="form-check-label">Premium</label>
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            className="form-check-input me-2"
+                            value="pets"
+                            onChange={handleCategoryChange}
+                        />
+                        <label className="form-check-label">Pets</label>
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            className="form-check-input me-2"
+                            value="food"
+                            onChange={handleCategoryChange}
+                        />
+                        <label className="form-check-label">Premium</label>
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            className="form-check-input me-2"
+                            value="landmarks"
+                            onChange={handleCategoryChange}
+                        />
+                        <label className="form-check-label">Landmarks</label>
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            className="form-check-input me-2"
+                            value="cities"
+                            onChange={handleCategoryChange}
+                        />
+                        <label className="form-check-label">Cities</label>
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            className="form-check-input me-2"
+                            value="nature"
+                            onChange={handleCategoryChange}/>
+                        <label className="form-check-label">Nature</label>
+                    </div>
+                </div>
 
                 <div className="col-md-7 col-lg-7 mb-4">
                     <div className="row">
