@@ -19,9 +19,9 @@ export const MidContainercomponent = ({alsoBuy, name, description, category}) =>
                         </div>
                         {
                             alsoBuy.map(item => {
-                                return(
+                                return (
                                     <div className="col-lg-4 col-md-6 item-entry mb-4" key={item._id}>
-                                            <img src={item.image.src} alt={item.image.alt} className="img-fluid same-size"/>
+                                        <img src={item.image.src} alt={item.image.alt} className="img-fluid same-size"/>
 
                                         <h2 className="item-title">{item.category}</h2>
                                         <strong className="item-name">{item.name}</strong>

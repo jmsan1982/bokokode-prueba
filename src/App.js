@@ -3,6 +3,7 @@ import {NavbarComponent} from "./components/NavbarComponent";
 import {SiteBlockComponent} from "./components/SiteBlockComponent";
 import {useEffect, useState} from "react";
 import {MidContainercomponent} from "./components/MidContainercomponent";
+import {ItemsComponent} from "./components/ItemsComponent";
 
 function App() {
     const [products, setProducts] = useState([]);
@@ -46,7 +47,6 @@ function App() {
         }
     })
 
-    console.log(products)
     return (
         <div className="App">
             <div className="site-wrap">
@@ -65,6 +65,8 @@ function App() {
                     description={featuredDescription}
                     category={category}
                 />
+
+                <ItemsComponent/>
 
             </div>
         </div>
