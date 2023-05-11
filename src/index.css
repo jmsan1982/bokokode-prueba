@@ -947,8 +947,14 @@ a:hover {
   width: 280px;
   height: 390px;
 }
+
 .add-to-cart {
   width: 235px!important;
+}
+
+.img-product-cart{
+  width: 150px;
+  height: 100px;
 }
 
 .same-size-product:hover .add-to-cart {
@@ -969,3 +975,46 @@ a:hover {
   flex-wrap: wrap;
 }
 
+.products-modal {
+  position: absolute;
+  top: 70px;
+  left: 1250px;
+  z-index: 9999;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  width: 400px;
+}
+
+.close {
+  background: #606061;
+  color: #FFFFFF;
+  line-height: 25px;
+  position: absolute;
+  right: 1px;
+  text-align: center;
+  top: -25px;
+  width: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius:3px;
+
+}
+
+.close:hover {
+  background: #FAAC58;
+  color:#222;
+}
+
+.cart-text {
+  font-size: 12px !important;
+}
+
+.btn.btn-black-cart {
+  padding: 12px 30px;
+  background: #f8f4f4;
+  color: #0a0000;
+  border: 2px solid #000;
+}
+.btn.btn-black-cart:hover, .btn.btn-black-cart:active, .btn.btn-black-cart:focus {
+  background-color: #333333; }

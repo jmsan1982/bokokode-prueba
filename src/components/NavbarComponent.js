@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import {FaBeer, FaShoppingCart} from "react-icons/fa";
 
 export const NavbarComponent = ({name}) => {
+    const [showProductsModal, setShowProductsModal] = useState(false);
     const productsCart = JSON.parse(localStorage.getItem('productsCart'));
+
+    const handleShowProductsModal = () => {
+        setShowProductsModal(true);
+    }
+
+    const handleCloseProductsModal = () => {
+        setShowProductsModal(false);
+    }
 
     return (
         <div className="site-navbar bg-white py-2 mb-2">
@@ -15,11 +24,11 @@ export const NavbarComponent = ({name}) => {
                     </div>
 
                     <div className="icons">
-                        <div>
-                            <a className="icons-btn d-inline-block bag me-5">
+                        <div style={{position: "relative"}}>
+                            <a className="icons-btn d-inline-block bag me-5" onMouseEnter={handleShowProductsModal}>
 
                                 {
-                                    productsCart.length > 0 ?(
+                                    productsCart.length > 0 ? (
                                         <span className="number">{productsCart.length}</span>
                                     ) : (
                                         ''
@@ -27,7 +36,7 @@ export const NavbarComponent = ({name}) => {
 
                             </a>
                             <a className="icons-btn d-inline-block bag">
-                                <span><FaShoppingCart size="2em" /></span>
+                                <span><FaShoppingCart size="2em"/></span>
                             </a>
                         </div>
 
@@ -47,7 +56,35 @@ export const NavbarComponent = ({name}) => {
                 </div>
             </div>
 
-        </div>
+            {showProductsModal && (
+                <div className="products-modal">
+                    <div className="modal-overlay" onClick={handleCloseProductsModal}></div>
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"
+                                    onClick={handleCloseProductsModal}>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {productsCart.map(product => (
+                            <div className="row" key={product._id}>
+                                <div className="col-lg-6 col-md-6 item-entry mb-4">
+                                    <strong className="item-name cart-text">{product.name}</strong>
+                                    <h2 className="item-title">${product.price}</h2>
+                                </div>
+                                <div className="col-lg-4 col-md-4 mb-4">
+                                    <img
+                                        className="img-product-cart"
+                                        src={product.image.src}
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                        <button className="btn btn-black-cart rounded-0">Clear</button>
+                    </div>
+                </div>
+            )}
 
-    )
+        </div>
+    );
 }
