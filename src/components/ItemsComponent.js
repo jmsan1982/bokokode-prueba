@@ -88,6 +88,7 @@ export const ItemsComponent = () => {
         let productsCart = JSON.parse(localStorage.getItem('productsCart')) || [];
         productsCart.push(product);
         localStorage.setItem('productsCart', JSON.stringify(productsCart));
+        window.location.reload();
     }
 
     return (
@@ -99,8 +100,8 @@ export const ItemsComponent = () => {
                 <div className="col-md-7 col-lg-7 mb-4">
                     <label htmlFor="sort by"
                            className="col-form-label text-md-right me-2">Sort By</label>
-                    <label className="me-2" onClick={handleSortPrice}><strong>Price</strong></label>
-                    <label onClick={handleSortName}><strong>Name</strong></label>
+                    <label className="me-2 pointer-image" onClick={handleSortPrice}><strong>Price</strong></label>
+                    <label className="pointer-image" onClick={handleSortName}><strong>Name</strong></label>
                 </div>
 
                 <div className="col-md-5 col-lg-5 mb-4">
@@ -179,11 +180,14 @@ export const ItemsComponent = () => {
                                         <img
                                             src={item.image.src}
                                             alt={item.image.alt}
-                                            className="img-fluid same-size-product"
+                                            className="img-fluid same-size-product pointer-image"
                                             onMouseOver={() => setHoveredProductId(item._id)}
                                             onMouseOut={() => setHoveredProductId(null)}
                                             onClick={() => hanleSaveProductStorage(item)}
                                         />
+                                        {item.bestseller && (
+                                            <span>Best Seller</span>
+                                        )}
                                         {hoveredProductId === item._id && (
                                             <button className="btn btn-black rounded-0 add-to-cart">Add to Cart</button>
                                         )}

@@ -11,6 +11,7 @@ function App() {
     const [errors, setErrors] = useState("");
     const [imageData, setImageData] = useState([]);
     const [alsoBuy, setAlsoBuy] = useState([]);
+    const [prodFeature, setProdFeature] = useState([]);
     const [featuredName, setFeaturedName] = useState("");
     const [featuredDescription, setFeaturedDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -45,6 +46,7 @@ function App() {
             setFeaturedName(products[0].name)
             setFeaturedDescription(products[0].description)
             setCategory(products[0].category)
+            setProdFeature(products[0])
         }
     })
 
@@ -53,7 +55,7 @@ function App() {
             <div className="site-wrap">
 
                 <NavbarComponent
-                    name={featuredName}
+                    product={prodFeature}
                 />
 
                 <SiteBlockComponent

@@ -1017,4 +1017,9 @@ a:hover {
   border: 2px solid #000;
 }
 .btn.btn-black-cart:hover, .btn.btn-black-cart:active, .btn.btn-black-cart:focus {
-  background-color: #333333; }
+  background-color: #333333;
+}
+
+.pointer-image {
+  cursor: pointer;
+}

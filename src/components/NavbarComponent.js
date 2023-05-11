@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {FaBeer, FaShoppingCart} from "react-icons/fa";
 
-export const NavbarComponent = ({name}) => {
+export const NavbarComponent = ({product}) => {
     const [showProductsModal, setShowProductsModal] = useState(false);
-    const productsCart = JSON.parse(localStorage.getItem('productsCart'));
+    const productsCart = JSON.parse(localStorage.getItem('productsCart')) ?? [];
+    const productFeature = product;
 
     const handleShowProductsModal = () => {
         setShowProductsModal(true);
@@ -11,6 +12,17 @@ export const NavbarComponent = ({name}) => {
 
     const handleCloseProductsModal = () => {
         setShowProductsModal(false);
+    }
+
+    const handleClearLocalStorage = () => {
+        localStorage.clear();
+        window.location.reload();
+    };
+
+    function handleSaveProductStorage(product) {
+        productsCart.push(product);
+        localStorage.setItem("productsCart", JSON.stringify(productsCart));
+        window.location.reload();
     }
 
     return (
@@ -48,10 +60,10 @@ export const NavbarComponent = ({name}) => {
             <div className="container">
                 <div className="d-flex align-items-center justify-content-between">
                     <div>
-                        <h3>{name}</h3>
+                        <h3>{productFeature.name}</h3>
                     </div>
                     <div>
-                        <a href="#" className="btn btn-black rounded-0">Add To Card</a>
+                        <button className="btn btn-black rounded-0" onClick={() => handleSaveProductStorage(productFeature)}>Add To Card</button>
                     </div>
                 </div>
             </div>
@@ -66,7 +78,7 @@ export const NavbarComponent = ({name}) => {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        {productsCart.map(product => (
+                        {productsCart && productsCart.map(product => (
                             <div className="row" key={product._id}>
                                 <div className="col-lg-6 col-md-6 item-entry mb-4">
                                     <strong className="item-name cart-text">{product.name}</strong>
@@ -80,7 +92,7 @@ export const NavbarComponent = ({name}) => {
                                 </div>
                             </div>
                         ))}
-                        <button className="btn btn-black-cart rounded-0">Clear</button>
+                        <button className="btn btn-black-cart rounded-0" onClick={handleClearLocalStorage}>Clear</button>
                     </div>
                 </div>
             )}
