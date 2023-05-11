@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {MidContainercomponent} from "./components/MidContainercomponent";
 import {ItemsComponent} from "./components/ItemsComponent";
 
+
 function App() {
     const [products, setProducts] = useState([]);
     const [errors, setErrors] = useState("");

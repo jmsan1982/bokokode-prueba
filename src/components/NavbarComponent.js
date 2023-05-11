@@ -1,6 +1,9 @@
 import React from "react";
+import {FaBeer, FaShoppingCart} from "react-icons/fa";
 
 export const NavbarComponent = ({name}) => {
+    const productsCart = JSON.parse(localStorage.getItem('productsCart'));
+
     return (
         <div className="site-navbar bg-white py-2 mb-2">
             <div className="container">
@@ -12,11 +15,23 @@ export const NavbarComponent = ({name}) => {
                     </div>
 
                     <div className="icons">
-                        <a href="cart.html" className="icons-btn d-inline-block bag">
-                            <span className="icon-shopping-bag">bolsa</span>
-                            <span className="number">2</span>
-                        </a>
-                        <a href="#" className="icons-btn d-inline-block"><span className="icon-heart-o">cesta</span></a>
+                        <div>
+                            <a className="icons-btn d-inline-block bag me-5">
+
+                                {
+                                    productsCart.length > 0 ?(
+                                        <span className="number">{productsCart.length}</span>
+                                    ) : (
+                                        ''
+                                    )}
+
+                            </a>
+                            <a className="icons-btn d-inline-block bag">
+                                <span><FaShoppingCart size="2em" /></span>
+                            </a>
+                        </div>
+
+
                     </div>
                 </div>
                 <hr/>

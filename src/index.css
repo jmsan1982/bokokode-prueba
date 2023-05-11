@@ -788,11 +788,10 @@ a:hover {
   top: 0;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
   line-height: 20px;
   color: #fff;
   font-size: 12px;
-  background: #ee4266;
+  background: #050001;
   right: -10px; }
 
 .search-wrap {
@@ -945,12 +944,28 @@ a:hover {
 }
 
 .same-size-product{
-  width: 282px;
-  height: 398px;
+  width: 280px;
+  height: 390px;
+}
+.add-to-cart {
+  width: 235px!important;
+}
+
+.same-size-product:hover .add-to-cart {
+  display: block;
 }
 .btn-paginate{
   background-color: white;
   color: black;
   border: 2px solid #4CAF50; /* Green */
+}
+
+.add-to-cart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 

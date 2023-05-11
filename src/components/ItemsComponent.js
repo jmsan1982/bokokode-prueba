@@ -8,6 +8,7 @@ export const ItemsComponent = () => {
     const [sortKey, setSortKey] = useState('name');
     const [sortType, setSortType] = useState('ASC');
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [hoveredProductId, setHoveredProductId] = useState(null);
     const getProductsPage = async () => {
         try {
             let settings = {};
@@ -81,6 +82,12 @@ export const ItemsComponent = () => {
         } else {
             setSelectedCategories(selectedCategories.filter((c) => c !== value));
         }
+    }
+
+    function hanleSaveProductStorage(product){
+        let productsCart = JSON.parse(localStorage.getItem('productsCart')) || [];
+        productsCart.push(product);
+        localStorage.setItem('productsCart', JSON.stringify(productsCart));
     }
 
     return (
@@ -169,8 +176,17 @@ export const ItemsComponent = () => {
                             products.map(item => {
                                 return(
                                     <div className="col-lg-4 col-md-6 item-entry mb-4" key={item._id}>
-                                        <img src={item.image.src} alt={item.image.alt} className="img-fluid same-size"/>
-
+                                        <img
+                                            src={item.image.src}
+                                            alt={item.image.alt}
+                                            className="img-fluid same-size-product"
+                                            onMouseOver={() => setHoveredProductId(item._id)}
+                                            onMouseOut={() => setHoveredProductId(null)}
+                                            onClick={() => hanleSaveProductStorage(item)}
+                                        />
+                                        {hoveredProductId === item._id && (
+                                            <button className="btn btn-black rounded-0 add-to-cart">Add to Cart</button>
+                                        )}
                                         <h2 className="item-title">{item.category}</h2>
                                         <strong className="item-name">{item.name}</strong>
                                         <h2 className="item-title">${item.price}</h2>
